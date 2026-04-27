@@ -33,10 +33,14 @@ for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
+		client.once(event.name, (...args) => event.execute.bind(client)(...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args));
+		client.on(event.name, (...args) => event.execute.bind(client)(...args));
 	}
 }
+
+// more global state yippee
+// map of guild to { textChannel: Snowflake; voiceChannel: Snowflake }
+client.ttsChannels = new Map();
 
 client.login(token);

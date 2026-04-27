@@ -9,7 +9,7 @@ module.exports = {
 			return;
 		}
 		try {
-			await command.execute(interaction);
+			await command.execute(interaction, this);
 		} catch (error) {
 			console.error(error);
 			if (interaction.replied || interaction.deferred) {
