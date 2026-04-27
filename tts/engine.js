@@ -2,7 +2,19 @@ const path = require("node:path");
 const { spawn } = require("node:child_process");
 const fs = require("node:fs");
 
-const { alphabet, alphabetJP, symbols, silent, exclaim } = require("./data.js");
+const {
+	alphabet,
+	alphabetJP,
+	symbols,
+	silent,
+	exclaim,
+	repeat,
+	aRepeat,
+	iRepeat,
+	uRepeat,
+	eRepeat,
+	oRepeat,
+} = require("./data.js");
 
 const sampleDir = path.join(__dirname, "PCM");
 
@@ -20,12 +32,32 @@ function normalize(message) {
 
 	for (let i = 0; i < message.length; i++) {
 		const utf16 = message.charCodeAt(i);
-		if (utf16 >= 0x30a1 && utf16 <= 0x30fa) {
+		let char = message[i].toLowerCase();
+
+		if (utf16 >= 0x30a1 && utf16 <= 0x30f4) {
 			// Katakana to Hiragana
-			newMessage += String.fromCharCode(utf16 - 0x30a1 + 0x3041);
-		} else {
-			newMessage += message[i].toLowerCase();
+			char = String.fromCharCode(utf16 - 0x30a1 + 0x3041);
 		}
+
+		if (repeat.has(char)) {
+			const lastChar = newMessage.at(-1);
+
+			if (aRepeat.has(lastChar)) {
+				char = "あ";
+			} else if (iRepeat.has(lastChar)) {
+				char = "い";
+			} else if (uRepeat.has(lastChar)) {
+				char = "う";
+			} else if (eRepeat.has(lastChar)) {
+				char = "え";
+			} else if (oRepeat.has(lastChar)) {
+				char = "お";
+			} else if (lastChar === "ん") {
+				char = "ん";
+			}
+		}
+
+		newMessage += char;
 	}
 
 	return newMessage;
@@ -33,18 +65,23 @@ function normalize(message) {
 
 function tokenize(message) {
 	const tokens = [];
-	let tok = "";
 
-	for (const char of message) {
-		if (char === "ゃ" || char === "ゅ" || char === "ょ") {
-			tok += char;
+	while (message.length) {
+		let maxPrefix = "";
+		for (const token of Object.keys(alphabetJP)) {
+			if (token.length > maxPrefix.length && message.startsWith(token)) {
+				maxPrefix = token;
+			}
+		}
+
+		if (maxPrefix.length) {
+			tokens.push(maxPrefix);
+			message = message.slice(maxPrefix.length);
 		} else {
-			if (tok.length) tokens.push(tok);
-			tok = char;
+			tokens.push(message[0]);
+			message = message.slice(1);
 		}
 	}
-
-	if (tok.length) tokens.push(tok);
 
 	return tokens;
 }
@@ -110,7 +147,7 @@ function generate(message, pitch) {
 		}
 	}
 
-	if (!nonSilent) return;
+	if (!nonSilent) return null;
 
 	const isExclaim = exclaim.has(message.at(-1));
 	if (isExclaim) pitch += 0.04;
@@ -159,40 +196,39 @@ function generate(message, pitch) {
 		pos += getSpacing(token, isExclaim);
 	}
 
-	const proc = spawn("ffmpeg", [
-		"-f",
-		`s${bitsPerSample}le`,
-		"-ac",
-		channels,
-		"-ar",
-		sampleRate,
-		"-i",
-		"-",
-		"-f",
-		"ogg",
-		"-acodec",
-		"libopus",
-		"-",
-	]);
-
-	proc.stderr.on("data", (buf) => process.stderr.write(buf));
-	proc.stdin.write(outBuf);
-	proc.stdin.end();
-
-	return proc.stdout;
+	return outBuf;
 }
 
-function getCompressed(message, pitch) {
+function getCompressed(
+	message,
+	pitch,
+	outArgs = ["-f", "ogg", "-acodec", "libopus"],
+) {
 	return new Promise((resolve) => {
-		const stream = generate(message, pitch);
+		const buffer = generate(message, pitch);
+		if (!buffer) return resolve(null);
 
-		if (!stream) return resolve(null);
+		const proc = spawn("ffmpeg", [
+			"-f",
+			`s${bitsPerSample}le`,
+			"-ac",
+			channels,
+			"-ar",
+			sampleRate,
+			"-i",
+			"-",
+			...outArgs,
+			"-",
+		]);
+
+		proc.stderr.on("data", (buf) => process.stderr.write(buf));
+		proc.stdin.write(buffer);
+		proc.stdin.end();
 
 		let buf = Buffer.alloc(0);
-
-		stream.on("data", (chunk) => (buf = Buffer.concat([buf, chunk])));
-		stream.on("end", () => resolve(buf));
+		proc.stdout.on("data", (chunk) => (buf = Buffer.concat([buf, chunk])));
+		proc.stdout.on("end", () => resolve(buf));
 	});
 }
 
-module.exports = { getCompressed };
+module.exports = { generate, getCompressed };

@@ -34,13 +34,17 @@ module.exports = {
 			interaction.options.getNumber("custom_pitch") ??
 			pitches.Base;
 		const ogg = await getCompressed(message, pitch);
-		await interaction.reply({
-			files: [
-				{
-					attachment: ogg,
-					name: "fumo.ogg",
-				},
-			],
-		});
+		if (ogg) {
+			await interaction.reply({
+				files: [
+					{
+						attachment: ogg,
+						name: "fumo.ogg",
+					},
+				],
+			});
+		} else {
+			await interaction.reply("The message contains no audible characters");
+		}
 	},
 };

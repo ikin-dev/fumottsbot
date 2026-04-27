@@ -80,7 +80,7 @@ const alphabetJP = {
 	れ: "re.pcm",
 	ろ: "ro.pcm",
 
-	わ: "wa.pcm",
+	わ: "wa_lw.pcm",
 	ゐ: "wi.pcm",
 	ゑ: "we.pcm",
 
@@ -159,7 +159,112 @@ const alphabetJP = {
 	ぴゃ: "pya.pcm",
 	ぴゅ: "pyu.pcm",
 	ぴょ: "pyo.pcm",
+
+	ふぁ: "fa.pcm",
+	ふぃ: "fi.pcm",
+	ふぇ: "fe.pcm",
+	ふぉ: "fo.pcm",
+
+	てぃ: "ti.pcm",
+
+	ゔ: "bu.pcm",
 };
+
+const aRepeat = new Set([
+	"ぁ",
+	"あ",
+	"か",
+	"が",
+	"さ",
+	"ざ",
+	"た",
+	"だ",
+	"な",
+	"は",
+	"ば",
+	"ぱ",
+	"ま",
+	"ゃ",
+	"や",
+	"ら",
+	"ゎ",
+	"わ",
+]);
+
+const iRepeat = new Set([
+	"ぃ",
+	"い",
+	"き",
+	"ぎ",
+	"し",
+	"じ",
+	"ち",
+	"ぢ",
+	"に",
+	"ひ",
+	"び",
+	"ぴ",
+	"み",
+	"り",
+	"ゐ",
+]);
+
+const uRepeat = new Set([
+	"ぅ",
+	"う",
+	"く",
+	"ぐ",
+	"す",
+	"ず",
+	"つ",
+	"づ",
+	"ぬ",
+	"ふ",
+	"ぶ",
+	"ぷ",
+	"む",
+	"ゅ",
+	"ゆ",
+	"る",
+]);
+
+const eRepeat = new Set([
+	"ぇ",
+	"え",
+	"け",
+	"げ",
+	"せ",
+	"ぜ",
+	"て",
+	"で",
+	"ね",
+	"へ",
+	"べ",
+	"ぺ",
+	"め",
+	"れ",
+	"ゑ",
+]);
+
+const oRepeat = new Set([
+	"ぉ",
+	"お",
+	"こ",
+	"ご",
+	"そ",
+	"ぞ",
+	"と",
+	"ど",
+	"の",
+	"ほ",
+	"ぼ",
+	"ぽ",
+	"も",
+	"ょ",
+	"よ",
+	"ろ",
+	"を",
+]);
 
 const symbols = [
 	alphabet.m,
@@ -200,5 +305,19 @@ const silent = new Set([
 	"っ",
 ]);
 const exclaim = new Set(["!", "！"]);
+const repeat = new Set(["ー", "〜"]);
 
-module.exports = { alphabet, alphabetJP, symbols, pitches, silent, exclaim };
+module.exports = {
+	alphabet,
+	alphabetJP,
+	symbols,
+	pitches,
+	silent,
+	exclaim,
+	repeat,
+	aRepeat,
+	iRepeat,
+	uRepeat,
+	eRepeat,
+	oRepeat,
+};

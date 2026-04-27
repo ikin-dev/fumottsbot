@@ -13,6 +13,8 @@ const { Readable } = require("node:stream");
 module.exports = {
 	name: Events.MessageCreate,
 	async execute(message) {
+		if (message.author.bot) return;
+
 		const entry = this.ttsChannels.get(message.guildId);
 		if (!entry || entry.textChannel !== message.channelId) return;
 
@@ -23,6 +25,10 @@ module.exports = {
 		}
 
 		const ogg = await getCompressed(message.content, pitches.Base);
+		if (!ogg) {
+			return;
+		}
+
 		const resource = createAudioResource(Readable.from(ogg), {
 			inputType: StreamType.OggOpus,
 		});
