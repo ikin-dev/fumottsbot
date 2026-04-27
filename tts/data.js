@@ -1,0 +1,203 @@
+const alphabet = {
+	a: 'a_la.pcm',
+	b: 'bi_lb.pcm',
+	c: 'shi_lcz.pcm',
+	d: 'ji_ldg.pcm',
+	e: 'i_lev.pcm',
+	f: 'lf.pcm',
+	g: 'ji_ldg.pcm',
+	h: 'lh.pcm',
+	i: 'li.pcm',
+	j: 'lj.pcm',
+	k: 'lk.pcm',
+	l: 'll.pcm',
+	m: 'lmn.pcm',
+	o: 'o_wo_lo.pcm',
+	p: 'pi_lp.pcm',
+	q: 'lq.pcm',
+	r: 'lr.pcm',
+	s: 'lsx.pcm',
+	t: 'lt.pcm',
+	u: 'lu.pcm',
+	v: 'i_lev.pcm',
+	w: 'wa_lw.pcm',
+	x: 'lsx.pcm',
+	y: 'ly.pcm',
+	z: 'shi_lcz.pcm',
+};
+
+const alphabetJP = {
+	あ: 'a_la.pcm',
+	い: 'i_lev.pcm',
+	う: 'u.pcm',
+	え: 'e_he.pcm',
+	お: 'o_wo_lo.pcm',
+
+	か: 'ka.pcm',
+	き: 'ki.pcm',
+	く: 'ku.pcm',
+	け: 'ke.pcm',
+	こ: 'ko.pcm',
+
+	さ: 'sa.pcm',
+	し: 'shi_lcz.pcm',
+	す: 'su.pcm',
+	せ: 'se.pcm',
+	そ: 'so.pcm',
+
+	た: 'ta.pcm',
+	ち: 'chi.pcm',
+	つ: 'tsu.pcm',
+	て: 'te.pcm',
+	と: 'to.pcm',
+
+	な: 'na.pcm',
+	に: 'ni.pcm',
+	ぬ: 'nu.pcm',
+	ね: 'ne.pcm',
+	の: 'no.pcm',
+
+	は: 'ha.pcm',
+	ひ: 'hi.pcm',
+	ふ: 'fu.pcm',
+	へ: 'e_he.pcm',
+	ほ: 'ho.pcm',
+
+	ま: 'ma.pcm',
+	み: 'mi.pcm',
+	む: 'mu.pcm',
+	め: 'me.pcm',
+	も: 'mo.pcm',
+
+	や: 'ya.pcm',
+	ゆ: 'yu.pcm',
+	よ: 'yo.pcm',
+
+	ら: 'ra.pcm',
+	り: 'ri.pcm',
+	る: 'ru.pcm',
+	れ: 're.pcm',
+	ろ: 'ro.pcm',
+
+	わ: 'wa.pcm',
+	ゐ: 'wi.pcm',
+	ゑ: 'we.pcm',
+
+	ん: 'n.pcm',
+
+	が: 'ga.pcm',
+	ぎ: 'gi.pcm',
+	ぐ: 'gu.pcm',
+	げ: 'ge.pcm',
+	ご: 'go.pcm',
+
+	ざ: 'za.pcm',
+	じ: 'ji_ldg.pcm',
+	ず: 'zu.pcm',
+	ぜ: 'ze.pcm',
+	ぞ: 'zo.pcm',
+
+	だ: 'da.pcm',
+	ぢ: 'ji_ldg.pcm',
+	づ: 'zu.pcm',
+	で: 'de.pcm',
+	ど: 'do.pcm',
+
+	ば: 'ba.pcm',
+	び: 'bi_lb.pcm',
+	ぶ: 'bu.pcm',
+	べ: 'be.pcm',
+	ぼ: 'bo.pcm',
+
+	ぱ: 'pa.pcm',
+	ぴ: 'pi_lp.pcm',
+	ぷ: 'pu.pcm',
+	ぺ: 'pe.pcm',
+	ぽ: 'po.pcm',
+
+	きゃ: 'kya.pcm',
+	きゅ: 'kyu.pcm',
+	きょ: 'kyo.pcm',
+
+	しゃ: 'sha.pcm',
+	しゅ: 'shu.pcm',
+	しょ: 'sho.pcm',
+
+	ちゃ: 'cha.pcm',
+	ちゅ: 'chu.pcm',
+	ちょ: 'cho.pcm',
+
+	にゃ: 'nya.pcm',
+	にゅ: 'nyu.pcm',
+	にょ: 'nyo.pcm',
+
+	ひゃ: 'hya.pcm',
+	ひゅ: 'hyu.pcm',
+	ひょ: 'hyo.pcm',
+
+	みゃ: 'mya.pcm',
+	みゅ: 'myu.pcm',
+	みょ: 'myo.pcm',
+
+	りゃ: 'rya.pcm',
+	りゅ: 'ryu.pcm',
+	りょ: 'ryo.pcm',
+
+	ぎゃ: 'gya.pcm',
+	ぎゅ: 'gyu.pcm',
+	ぎょ: 'gyo.pcm',
+
+	じゃ: 'ja.pcm',
+	じゅ: 'ju.pcm',
+	じょ: 'jo.pcm',
+
+	びゃ: 'bya.pcm',
+	びゅ: 'byu.pcm',
+	びょ: 'byo.pcm',
+
+	ぴゃ: 'pya.pcm',
+	ぴゅ: 'pyu.pcm',
+	ぴょ: 'pyo.pcm',
+};
+
+const symbols = [
+	alphabet.m,
+	alphabet.n,
+	alphabet.o,
+	alphabet.p,
+	alphabet.q,
+	alphabet.r,
+	alphabet.s,
+	alphabet.t,
+	alphabet.u,
+	alphabet.v,
+	alphabet.w,
+	alphabet.x,
+	alphabet.y,
+];
+
+const pitches = {
+	Low: 1.1,
+	Base: 1.25,
+	High: 1.4,
+};
+
+const silent = new Set([
+	'?',
+	'？',
+	'!',
+	'！',
+	'.',
+	'。',
+	'~',
+	'〜',
+	',',
+	'、',
+	"'",
+	' ',
+	'　',
+	'っ',
+]);
+const exclaim = new Set(['!', '！']);
+
+module.exports = { alphabet, alphabetJP, symbols, pitches, silent, exclaim };
