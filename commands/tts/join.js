@@ -11,6 +11,7 @@ module.exports = {
       const guild = await client.guilds.fetch(interaction.guildId);
       const member = await guild.members.fetch(interaction.member.id);
       const voiceChannel = member.voice.channel;
+      const textChannel = interaction.options.getChannel("channel").id;
 
       joinVoiceChannel({
         channelId: voiceChannel.id,
@@ -19,10 +20,10 @@ module.exports = {
       });
 
       client.ttsChannels.set(voiceChannel.guild.id, {
-        textChannel: interaction.channelId,
+        textChannel,
         voiceChannel: voiceChannel.id,
       });
 
-      interaction.reply(`Joined ${voiceChannel}, bound to <#${interaction.channelId}>`);
+      interaction.reply(`Joined ${voiceChannel}, bound to <#${textChannel}>`);
     },
 };

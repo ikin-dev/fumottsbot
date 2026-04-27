@@ -51,8 +51,8 @@ function tokenize(message) {
 
 function getFilename(letter) {
 	return (
-		alphabet[letter] ||
-		alphabetJP[letter] ||
+		alphabet[letter] ??
+		alphabetJP[letter] ??
 		symbols[Math.floor(Math.random() * symbols.length)]
 	);
 }
@@ -170,6 +170,8 @@ function generate(message, pitch) {
 		'-',
 		'-f',
 		'ogg',
+		'-acodec',
+		'libopus',
 		'-',
 	]);
 

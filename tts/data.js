@@ -12,6 +12,7 @@ const alphabet = {
 	k: 'lk.pcm',
 	l: 'll.pcm',
 	m: 'lmn.pcm',
+	n: 'lmn.pcm',
 	o: 'o_wo_lo.pcm',
 	p: 'pi_lp.pcm',
 	q: 'lq.pcm',
