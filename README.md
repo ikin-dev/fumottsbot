@@ -4,19 +4,22 @@ A Discord bot for playing text-to-speech in voice channels using fumo voice samp
 
 # Building
 
-This project uses [discord.js](https://discord.js.org/) (TypeScript/JavaScript) as its framework. 
+This project uses [discord.js](https://discord.js.org/) (TypeScript/JavaScript) as its framework.
 
 To build the project, clone the Git repository:
+
 ```
 git clone https://github.com/ikin-dev/fumottsbot.git
 ```
 
 Navigate to the cloned folder:
+
 ```
 cd fumottsbot
 ```
 
 Install dependencies using npm:
+
 ```
 npm i
 ```

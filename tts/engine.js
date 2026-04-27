@@ -1,10 +1,10 @@
-const path = require('node:path');
-const { spawn } = require('node:child_process');
-const fs = require('node:fs');
+const path = require("node:path");
+const { spawn } = require("node:child_process");
+const fs = require("node:fs");
 
-const { alphabet, alphabetJP, symbols, silent, exclaim } = require('./data.js');
+const { alphabet, alphabetJP, symbols, silent, exclaim } = require("./data.js");
 
-const sampleDir = path.join(__dirname, 'PCM');
+const sampleDir = path.join(__dirname, "PCM");
 
 const sampleRate = 48000;
 const channels = 1;
@@ -16,7 +16,7 @@ const samplesPerMs = sampleRate / 1000;
 const sampleCache = {};
 
 function normalize(message) {
-	let newMessage = '';
+	let newMessage = "";
 
 	for (let i = 0; i < message.length; i++) {
 		const utf16 = message.charCodeAt(i);
@@ -33,10 +33,10 @@ function normalize(message) {
 
 function tokenize(message) {
 	const tokens = [];
-	let tok = '';
+	let tok = "";
 
 	for (const char of message) {
-		if (char === 'ゃ' || char === 'ゅ' || char === 'ょ') {
+		if (char === "ゃ" || char === "ゅ" || char === "ょ") {
 			tok += char;
 		} else {
 			if (tok.length) tokens.push(tok);
@@ -75,11 +75,11 @@ function duration(filename) {
 }
 
 function getSpacing(token, isExclaim) {
-	if (alphabetJP[token] || token === '　') {
+	if (alphabetJP[token] || token === "　") {
 		return isExclaim ? 140 : 100; // ms
 	}
 
-	if (token === 'っ') {
+	if (token === "っ") {
 		return isExclaim ? 160 : 120; // ms
 	}
 
@@ -159,23 +159,23 @@ function generate(message, pitch) {
 		pos += getSpacing(token, isExclaim);
 	}
 
-	const proc = spawn('ffmpeg', [
-		'-f',
+	const proc = spawn("ffmpeg", [
+		"-f",
 		`s${bitsPerSample}le`,
-		'-ac',
+		"-ac",
 		channels,
-		'-ar',
+		"-ar",
 		sampleRate,
-		'-i',
-		'-',
-		'-f',
-		'ogg',
-		'-acodec',
-		'libopus',
-		'-',
+		"-i",
+		"-",
+		"-f",
+		"ogg",
+		"-acodec",
+		"libopus",
+		"-",
 	]);
 
-	proc.stderr.on('data', (buf) => process.stderr.write(buf));
+	proc.stderr.on("data", (buf) => process.stderr.write(buf));
 	proc.stdin.write(outBuf);
 	proc.stdin.end();
 
@@ -190,8 +190,8 @@ function getCompressed(message, pitch) {
 
 		let buf = Buffer.alloc(0);
 
-		stream.on('data', (chunk) => (buf = Buffer.concat([buf, chunk])));
-		stream.on('end', () => resolve(buf));
+		stream.on("data", (chunk) => (buf = Buffer.concat([buf, chunk])));
+		stream.on("end", () => resolve(buf));
 	});
 }
 
