@@ -14,6 +14,7 @@ const {
 	uRepeat,
 	eRepeat,
 	oRepeat,
+	smallToLarge,
 } = require("./data.js");
 
 const sampleDir = path.join(__dirname, "PCM");
@@ -34,7 +35,7 @@ function normalize(message) {
 		const utf16 = message.charCodeAt(i);
 		let char = message[i].toLowerCase();
 
-		if (utf16 >= 0x30a1 && utf16 <= 0x30f4) {
+		if (utf16 >= 0x30a1 && utf16 <= 0x30f6) {
 			// Katakana to Hiragana
 			char = String.fromCharCode(utf16 - 0x30a1 + 0x3041);
 		}
@@ -84,6 +85,12 @@ function tokenize(message) {
 	}
 
 	return tokens;
+}
+
+function normalizeTokens(tokens) {
+	return tokens.map((tok) => {
+		return smallToLarge[tok] ?? tok;
+	});
 }
 
 function getFilename(letter) {
@@ -136,7 +143,7 @@ function messageDuration(tokens, pitch, isExclaim) {
 }
 
 function generate(message, pitch) {
-	message = tokenize(normalize(message));
+	message = normalizeTokens(tokenize(normalize(message)));
 
 	let nonSilent = false;
 

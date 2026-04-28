@@ -82,7 +82,10 @@ const alphabetJP = {
 
 	わ: "wa_lw.pcm",
 	ゐ: "wi.pcm",
+	うぃ: "wi.pcm",
 	ゑ: "we.pcm",
+	うぇ: "we.pcm",
+	うぉ: "wo.pcm",
 
 	ん: "n.pcm",
 
@@ -165,7 +168,20 @@ const alphabetJP = {
 	ふぇ: "fe.pcm",
 	ふぉ: "fo.pcm",
 
+	しぇ: "she.pcm",
+	じぇ: "je.pcm",
+
+	ちぇ: "che.pcm",
+
 	てぃ: "ti.pcm",
+	でぃ: "di.pcm",
+	とぅ: "tu.pcm",
+	どぅ: "du.pcm",
+
+	つぁ: "tsa.pcm",
+	つぃ: "tsi.pcm",
+	つぇ: "tse.pcm",
+	つぉ: "tso.pcm",
 
 	ゔ: "bu.pcm",
 };
@@ -266,6 +282,20 @@ const oRepeat = new Set([
 	"を",
 ]);
 
+const smallToLarge = {
+	ぁ: "あ",
+	ぃ: "い",
+	ぅ: "う",
+	ぇ: "え",
+	ぉ: "お",
+	ゃ: "や",
+	ゅ: "ゆ",
+	ょ: "よ",
+	ゎ: "わ",
+	ゕ: "か",
+	ゖ: "け",
+};
+
 const symbols = [
 	alphabet.m,
 	alphabet.n,
@@ -320,4 +350,5 @@ module.exports = {
 	uRepeat,
 	eRepeat,
 	oRepeat,
+	smallToLarge,
 };
