@@ -1,18 +1,19 @@
 const { SlashCommandBuilder, MessageFlags } = require("discord.js");
+const { pitches } = require("../../tts/data.js");
 const { saveUserData } = require("../../db/userDataHandler.js");
 const { execute } = require("../tts/tts");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("changevoice")
 		.setDescription("Change the pitch your TTS voice")
-		.addStringOption((option) =>
+		.addNumberOption((option) =>
 			option
 				.setName("preset")
 				.setDescription("Name of pitch level")
 				.setChoices(
-					{ name: "Low", value: "Low" },
-					{ name: "Base", value: "Base" },
-					{ name: "High", value: "High" },
+					{ name: "Low", value: pitches.Low },
+					{ name: "Base", value: pitches.Base },
+					{ name: "High", value: pitches.High },
 				),
 		)
 		.addNumberOption((option) =>
@@ -23,7 +24,7 @@ module.exports = {
 				.setMaxValue(3.0),
 		),
 	async execute(interaction, client) {
-		const preset = interaction.options.getString("preset");
+		const preset = interaction.options.getNumber("preset");
 		const customPitch = interaction.options.getNumber("pitch");
 
 		if (preset && customPitch !== null) {
@@ -35,7 +36,7 @@ module.exports = {
 			return;
 		}
 
-		const pitch = customPitch ?? preset ?? "default";
+		const pitch = customPitch ?? preset ?? pitches.Base;
 
 		saveUserData(interaction.user.id, interaction.user.username, pitch);
 		await interaction.reply({
