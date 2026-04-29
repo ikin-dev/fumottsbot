@@ -9,7 +9,7 @@ const {
 const { getCompressed } = require("../tts/engine.js");
 const { pitches } = require("../tts/data.js");
 const { Readable } = require("node:stream");
-const { getUserPitch } = require("../db/userDataHandler.js");
+const { getUserData } = require("../db/userDataHandler.js");
 
 module.exports = {
 	name: Events.MessageCreate,
@@ -25,8 +25,9 @@ module.exports = {
 			return;
 		}
 
-		const pitch = await getUserPitch(message.author.id);
-		const ogg = await getCompressed(message.content, pitch ?? pitches.Base);
+		const userData = await getUserData(message.author.id);
+		const pitch = userData ? userData.voice : pitches.Base; // if .voice doesn't exist return undefined
+		const ogg = await getCompressed(message.content, pitch ?? pitches.Base); // if undefined, use base
 		if (!ogg) {
 			return;
 		}
