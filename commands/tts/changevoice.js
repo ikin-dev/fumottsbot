@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const { pitches } = require("../../tts/data.js");
 const { saveUserData } = require("../../db/userDataHandler.js");
-const { execute } = require("../tts/tts");
+const { execute } = require("./tts.js");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("changevoice")

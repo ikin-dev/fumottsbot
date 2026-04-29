@@ -22,7 +22,7 @@ function createProfileEmbed(interaction, userData) {
 		.setTitle(`${interaction.user.displayName ?? "Unknown User"}'s Profile`)
 		.addFields({
 			name: "Settings",
-			value: `Fumo voice: ${getPitchName(userData.voice)} (pitch \`${userData.voice}\`)`,
+			value: `Fumo voice: ${getPitchName(userData.pitch)} (pitch \`${userData.pitch}\`)`,
 			inline: false,
 		})
 		.setTimestamp();

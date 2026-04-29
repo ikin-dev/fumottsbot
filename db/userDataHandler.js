@@ -1,7 +1,8 @@
 const { getData, saveData } = require("./jsonHandler.js");
+const { pitches } = require("../tts/data.js");
 
 // Load existing data or initialize new data
-async function saveUserData(userId, username, voice) {
+async function saveUserData(userId, username, pitch) {
 	let data = await getData();
 	if (!data) {
 		data = { users: {}, stats: {} };
@@ -10,7 +11,7 @@ async function saveUserData(userId, username, voice) {
 	// overwrite user data in memory
 	data.users[userId] = {
 		username: username ? username : "unknown",
-		voice: voice ? voice : "default",
+		pitch: pitch ? pitch : pitches.Base,
 	};
 
 	// save to file

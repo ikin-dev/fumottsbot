@@ -26,7 +26,7 @@ module.exports = {
 		}
 
 		const userData = await getUserData(message.author.id);
-		const pitch = userData ? userData.voice : pitches.Base; // if .voice doesn't exist return undefined
+		const pitch = userData ? userData.pitch : pitches.Base; // if .pitch doesn't exist return undefined
 		const ogg = await getCompressed(message.content, pitch ?? pitches.Base); // if undefined, use base
 		if (!ogg) {
 			return;
