@@ -23,6 +23,15 @@ async function saveUserData(userId, username, voice) {
 	}
 }
 
+async function getUserPitch(userId) {
+	const data = await getData();
+	if (data && data.users[userId]) {
+		return data.users[userId].voice;
+	}
+	return null;
+}
+
 module.exports = {
 	saveUserData,
+	getUserPitch,
 };
