@@ -7,8 +7,9 @@
 	"name": "fumottsbot",
 	"version": "1.0.0",
 	"description": "",
-	"main": "main.js",
+	"main": "index.js",
 	"scripts": {
+		"start": "node index.js",
 		"format": "prettier --write ."
 	},
 	"keywords": [],
