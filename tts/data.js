@@ -13,7 +13,7 @@ const alphabet = {
 	l: "ll.pcm",
 	m: "lmn.pcm",
 	n: "lmn.pcm",
-	o: "o_wo_lo.pcm",
+	o: "o_lo.pcm",
 	p: "pi_lp.pcm",
 	q: "lq.pcm",
 	r: "lr.pcm",
@@ -31,8 +31,8 @@ const alphabetJP = {
 	あ: "a_la.pcm",
 	い: "i_lev.pcm",
 	う: "u.pcm",
-	え: "e_he.pcm",
-	お: "o_wo_lo.pcm",
+	え: "e.pcm",
+	お: "o_lo.pcm",
 
 	か: "ka.pcm",
 	き: "ki.pcm",
@@ -61,7 +61,7 @@ const alphabetJP = {
 	は: "ha.pcm",
 	ひ: "hi.pcm",
 	ふ: "fu.pcm",
-	へ: "e_he.pcm",
+	へ: "he.pcm",
 	ほ: "ho.pcm",
 
 	ま: "ma.pcm",
