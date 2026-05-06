@@ -119,15 +119,21 @@ function duration(filename) {
 }
 
 function getSpacing(token, isExclaim) {
+	// SBF does not do the spacing
 	if (alphabetJP[token] || token === "　") {
-		return isExclaim ? 140 : 100; // ms
+		//return isExclaim ? 140 : 100; // ms
+		return 100; // ms
 	}
 
 	if (token === "っ") {
-		return isExclaim ? 160 : 120; // ms
+		//return isExclaim ? 200 : 160; // ms
+		return 160; // ms
 	}
 
-	return isExclaim ? 70 : 50; // ms
+	// Original wait is 50ms normal 70ms exclaim
+	// Increased to compensate for Roblox task scheduler
+	//return isExclaim ? 85 : 58; // ms
+	return 58; // ms
 }
 
 function messageDuration(tokens, pitch, isExclaim) {
