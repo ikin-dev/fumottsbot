@@ -215,6 +215,7 @@ function generate(message, pitch) {
 function getCompressed(
 	message,
 	pitch,
+	log = false,
 	outArgs = ["-f", "ogg", "-acodec", "libopus"],
 ) {
 	return new Promise((resolve) => {
@@ -234,7 +235,7 @@ function getCompressed(
 			"-",
 		]);
 
-		proc.stderr.on("data", (buf) => process.stderr.write(buf));
+		if (log) proc.stderr.on("data", (buf) => process.stderr.write(buf));
 		proc.stdin.write(buffer);
 		proc.stdin.end();
 
